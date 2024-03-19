@@ -2,6 +2,7 @@ pipeline {
   
     agent { 
         any
+    }    
     environment {
         registry = "183465517923.dkr.ecr.us-east-1.amazonaws.com/vprofileapp"
     }
@@ -32,7 +33,7 @@ pipeline {
              sh 'docker rmi $JOB_NAME:v1.$BUILD_ID ${registry}:v1.$BUILD_ID' // Delete docker images from server 
            }
           }
-         }
         }
+        
     } 
 }   
