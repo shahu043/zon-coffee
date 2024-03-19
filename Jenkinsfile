@@ -1,8 +1,5 @@
 pipeline {
-  
-    agent { 
-        any
-    }    
+    agent any  
     environment {
         registry = "183465517923.dkr.ecr.us-east-1.amazonaws.com/vprofileapp"
     }
