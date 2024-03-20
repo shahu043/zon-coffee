@@ -27,8 +27,9 @@ pipeline {
         stage('Building image') {
           steps{
             script {
-              sh 'docker build -t $JOB_NAME:v1.$BUILD_ID .'
-              sh 'docker tag $JOB_NAME:v1.$BUILD_ID ${registry}:v1.$BUILD_ID'
+              //sh 'docker build -t $JOB_NAME:v1.$BUILD_ID .'
+              //sh 'docker tag $JOB_NAME:v1.$BUILD_ID ${registry}:v1.$BUILD_ID'
+              dockerImage = docker.build "${IMAGE_REPO_NAME}:${IMAGE_TAG}"
              }
            }
          }
@@ -37,9 +38,11 @@ pipeline {
        stage('Pushing to ECR') {
          steps{  
            script {
-             sh 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 183465517923.dkr.ecr.us-east-1.amazonaws.com' 
-             sh 'docker push ${registry}:v1.$BUILD_ID'
-             sh 'docker rmi $JOB_NAME:v1.$BUILD_ID ${registry}:v1.$BUILD_ID' // Delete docker images from server 
+             //sh 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 183465517923.dkr.ecr.us-east-1.amazonaws.com' 
+             //sh 'docker push ${registry}:v1.$BUILD_ID'
+             //sh 'docker rmi $JOB_NAME:v1.$BUILD_ID ${registry}:v1.$BUILD_ID' // Delete docker images from server 
+             sh "docker tag ${IMAGE_REPO_NAME}:${IMAGE_TAG} ${REPOSITORY_URI}:$IMAGE_TAG"
+             sh "docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}:${IMAGE_TAG}"
            }
           }
         }
