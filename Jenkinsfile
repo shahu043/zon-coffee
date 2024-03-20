@@ -4,7 +4,7 @@ pipeline {
          AWS_ACCOUNT_ID="183465517923"
          AWS_DEFAULT_REGION="us-east-1" 
          IMAGE_REPO_NAME="zoncoffee"
-         IMAGE_TAG="latest"
+         IMAGE_TAG="latest.${BUILD_NUMBER}"
          REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
     }
     
@@ -41,7 +41,7 @@ pipeline {
              //sh 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 183465517923.dkr.ecr.us-east-1.amazonaws.com' 
              //sh 'docker push ${registry}:v1.$BUILD_ID'
              //sh 'docker rmi $JOB_NAME:v1.$BUILD_ID ${registry}:v1.$BUILD_ID' // Delete docker images from server 
-             sh "docker tag ${IMAGE_REPO_NAME}:${IMAGE_TAG} ${REPOSITORY_URI}:$IMAGE_TAG"
+             sh "docker tag ${IMAGE_REPO_NAME}:${IMAGE_TAG} ${REPOSITORY_URI}:${IMAGE_TAG}"
              sh "docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}:${IMAGE_TAG}"
            }
           }
