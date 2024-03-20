@@ -28,7 +28,7 @@ pipeline {
           steps{
             script {
               //sh 'docker build -t $JOB_NAME:v1.$BUILD_ID .'
-              //sh 'docker tag $JOB_NAME:v1.$BUILD_ID ${registry}:v1.$BUILD_ID'
+              //sh 'docker tag $JOB_NAME:v1.$BUILD_ID ${registry}:v1.$BUILD_ID' //
               dockerImage = docker.build "${IMAGE_REPO_NAME}:${IMAGE_TAG}"
              }
            }
