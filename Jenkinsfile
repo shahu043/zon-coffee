@@ -4,7 +4,7 @@ pipeline {
          AWS_ACCOUNT_ID="183465517923"
          AWS_DEFAULT_REGION="us-east-1" 
          IMAGE_REPO_NAME="zoncoffee"
-         IMAGE_TAG="latest.${BUILD_NUMBER}"
+         IMAGE_TAG="latest"
          REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
     }
     
